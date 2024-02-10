@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load templatetags %}
+{% load static %}
+
+{% block content %}
+    <div>
+        <h2>{{ course.title }}</h2>
+        <p>Description: {{ course.description }}</p>
+        <p>Instructor: {{ course.author }}</p>
+        <p>Price: ${{ course.price }}</p>
+        <br>
+        <img src="{{ course.image.url }}" width="300" height="300" alt="">
+    </div>
+    <br><br>
+
+    {% if course.id|check_user:request is True %}
+        <div class="course" align="center">
+            {% for season in course.seasons.all %}
+                <div class="section">
+                    <h2>Section {{ forloop.counter }}: <span style="color: blue; font-weight: bolder">{{ season.title }}</span></h2>
+                    <br><br>
+                    {% for course in season.lessons.all %}
+                        <div class="video">
+                            <h3>Video {{ forloop.counter }}: {{ course.title }}</h3>
+                            <video controls>
+                                <source src="{{ course.video.url }}" type="video/mp4">
+                            </video>
+                        </div>
+                        <br><br>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    {% else %}
+        <li style="text-align: center">You haven`t purchased this course</li>
+        {% for season in course.seasons.all %}
+            <div class="course">
+                <h2>Section {{ forloop.counter }}: {{ season.title }}</h2>
+                <br><br>
+                {% for course in season.lessons.all %}
+                    {% if course.free is False %}
+                        <div class="video">
+                            <h3>Video {{ forloop.counter }}: {{ course.title }}</h3>
+                            This video is <span style="color: red; font-weight: bold">Costly</span>.
+                        </div>
+                    {% else %}
+                        <div class="video">
+                            <h3>Video {{ forloop.counter }}: {{ course.title }}</h3>
+                            <video controls>
+                                <source src="{{ course.video.url }}" type="video/mp4">
+                            </video>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <hr>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+<script src="{% static "script.js" %}"></script>

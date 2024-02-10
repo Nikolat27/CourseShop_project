@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+</head>
+<body>
+<h1 align="center">Register Here</h1>
+<h3 align="center"><a href="{% url "home_app:main" %}">Home Page</a></h3>
+
+<br>
+<form action="{% url "account_app:register" %}" method="POST">
+    {% csrf_token %}
+    {% if error %}
+        <div name="error" align="center">
+            <span style="color: red; font-weight: bold">Error</span>:
+            <h3>{{ error }}</h3>
+        </div>
+    {% endif %}
+    <div name="username" align="center">
+        Username:
+        <input type="text" name="username" placeholder="username...">
+    </div>
+    <br>
+    <div name="password" align="center">
+        Password:
+        <input type="password" name="password" placeholder="password...">
+    </div>
+    <br>
+    <div name="repassword" align="center">
+        RePassword:
+        <input type="password" name="repassword" placeholder="RePassword...">
+    </div>
+    <br>
+    <div align="center">
+        <button type="submit">Submit</button>
+    </div>
+
+    <br>
+    <h3 align="center">if you have an account <a href="{% url "account_app:login" %}">Click Here</a></h3>
+
+</form>
+</body>
+</html>

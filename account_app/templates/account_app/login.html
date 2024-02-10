@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+
+<h1 align="center">Login Here</h1>
+<h3 align="center"><a href="{% url "home_app:main" %}">Home Page</a></h3>
+
+<form action="{% url "account_app:login" %}" method="POST">
+    {% csrf_token %}
+    <div name="username" align="center">
+        Username:
+        <input type="text" name="username" placeholder="username...">
+        <br>
+    </div>
+    <div name="password" align="center">
+        Password:
+        <input type="password" name="password" placeholder="password...">
+        <br>
+    </div>
+
+    <br><br>
+    <div align="center">
+        <button type="submit">Submit</button>
+    </div>
+
+    <br>
+    <h3 align="center">if you don`t have an account <a href="{% url "account_app:register" %}">Click Here</a></h3>
+</form>
+</body>
+</html>
