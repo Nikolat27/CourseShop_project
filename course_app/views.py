@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
 from course_app.models import Course
 
 
@@ -10,6 +10,25 @@ from course_app.models import Course
 def course_list(request):
     courses = Course.objects.all()
     return render(request, "course_app/course_list.html", context={"courses": courses})
+
+
+def search(request):
+    q = request.GET.get("q")
+    if q:
+        courses = Course.objects.filter(title__icontains=q)
+        return render(request, "course_app/course_list.html", context={"courses": courses})
+    else:
+        return redirect("home_app:main")
+
+
+def autocomplete(request):
+    if 'term' in request.GET:
+        courses = Course.objects.filter(title__istartswith=request.GET.get('term'))
+        titles = []
+        for course in courses:
+            titles.append(course.title)
+        return JsonResponse(titles, safe=False)
+    return render(request, "home_app/index.html")
 
 
 @login_required

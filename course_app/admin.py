@@ -9,10 +9,15 @@ class VideoAdmin(admin.TabularInline):
     model = models.Lesson
 
 
+@admin.register(models.Course)
+class CourseAdmin(admin.ModelAdmin):
+    search_fields = ['title']
+
+
 @admin.register(models.Season)
-class SeasonADmin(admin.ModelAdmin):
+class SeasonAdmin(admin.ModelAdmin):
     inlines = [VideoAdmin]
+    autocomplete_fields = ['course']
 
 
-admin.site.register(models.Course)
 admin.site.register(models.Category)

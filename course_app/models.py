@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.timezone import now
+from django.db import models
 
 
 # Create your models here.
@@ -46,5 +46,3 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
-
-

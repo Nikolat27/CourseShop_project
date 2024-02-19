@@ -8,6 +8,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
 </head>
 <body>
 <header>
@@ -46,6 +49,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "account_app:about" %}">About</a>
                 </li>
+                &nbsp;&nbsp;
+                Search:
+                &nbsp;&nbsp;
+                <form method="GET" action="{% url "course_app:search" %}">
+                    <input class="form-control" type="text" name="q" id="course">
+                    <button class="btn-primary" type="submit">Search</button>
+                </form>
             </ul>
         </div>
     </nav>
@@ -55,9 +65,21 @@
 
 {% endblock %}
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(function () {
+        $("#course").autocomplete({
+            source: '{% url 'course_app:autocomplete' %}',
+            minLength: 2
+        });
+    });
+</script>
+
 <footer class="mt-5">
     <div class="container text-center">
-        <p>&copy; 2023 Course Website. All rights reserved.</p>
+        <p>&copy; 2024 Course Website. All rights reserved.</p>
     </div>
 </footer>
 </body>

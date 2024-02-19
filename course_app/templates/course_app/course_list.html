@@ -12,7 +12,8 @@
                         <img class="card-img-top" src="{{ course.image.url }}" height="350" width="150"
                              alt="Course 1">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{% url "course_app:course_detail" course.id %}">{{ course.title }}</a></h5>
+                            <h5 class="card-title"><a
+                                    href="{% url "course_app:course_detail" course.id %}">{{ course.title }}</a></h5>
                             <p class="card-text">{{ course.description|truncatewords:15 }}</p>
                             <button type="submit" class="btn btn-primary">Buy Now</button>
                         </div>
