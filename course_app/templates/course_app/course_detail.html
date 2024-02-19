@@ -10,6 +10,15 @@
         <p>Price: ${{ course.price }}</p>
         <br>
         <img src="{{ course.image.url }}" width="300" height="300" alt="">
+        <br><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Requirements:
+        {% for requirement in course.requirements.all %}
+            <p style="color: green;">&nbsp;&nbsp;&nbsp;&nbsp;{{ requirement.title }}</p>
+            <br>
+        {% empty %}
+            &nbsp;&nbsp;&nbsp;&nbsp;You need nothing for this course!
+        {% endfor %}
+        <hr>
     </div>
     <br><br>
 
@@ -17,7 +26,8 @@
         <div class="course" align="center">
             {% for season in course.seasons.all %}
                 <div class="section">
-                    <h2>Section {{ forloop.counter }}: <span style="color: blue; font-weight: bolder">{{ season.title }}</span></h2>
+                    <h2>Section {{ forloop.counter }}: <span
+                            style="color: blue; font-weight: bolder">{{ season.title }}</span></h2>
                     <br><br>
                     {% for course in season.lessons.all %}
                         <div class="video">

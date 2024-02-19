@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from course_app.models import Course
@@ -6,10 +7,12 @@ from course_app.models import Course
 
 # Create your views here.
 
-
 def course_list(request):
-    courses = Course.objects.all()
-    return render(request, "course_app/course_list.html", context={"courses": courses})
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(Course.objects.all(), 4)
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'course_app/course_list.html', {'courses': page_obj})
 
 
 def search(request):

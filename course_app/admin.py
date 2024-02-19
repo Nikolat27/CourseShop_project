@@ -9,9 +9,14 @@ class VideoAdmin(admin.TabularInline):
     model = models.Lesson
 
 
+class RequirementAdmin(admin.TabularInline):
+    model = models.Requirements
+
+
 @admin.register(models.Course)
 class CourseAdmin(admin.ModelAdmin):
     search_fields = ['title']
+    inlines = [RequirementAdmin]
 
 
 @admin.register(models.Season)

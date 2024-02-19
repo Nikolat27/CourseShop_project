@@ -46,3 +46,11 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Requirements(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="requirements", null=True, blank=True)
+    title = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.title
